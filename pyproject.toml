@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "diagram-analyser"
+version = "0.1.0"
+description = "Structural analysis of mermaid / PlantUML / Graphviz / drawio diagrams (plus image diagrams via optional vision)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Michael Borck", email = "michael.borck@curtin.edu.au" }]
+keywords = ["diagram", "mermaid", "plantuml", "graphviz", "drawio", "uml", "flowchart", "analysis", "lens"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "lens-contract>=0.2.0",
+    "networkx>=3.0",
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "python-multipart>=0.0.9",
+    "rich>=13.7.0",
+]
+
+[project.optional-dependencies]
+vision = [
+    "anthropic>=0.30.0",
+    "httpx>=0.26.0",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+    "httpx>=0.26.0",
+]
+
+# Local dev: resolve lens-contract from the sibling checkout. uv strips this from
+# the published wheel — the plain `lens-contract>=0.2.0` PyPI pin remains.
+[tool.uv.sources]
+lens-contract = { path = "../lens-contract", editable = true }
+
+[project.scripts]
+diagram-analyser = "diagram_analyser.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/michael-borck/diagram-analyser"
+Repository = "https://github.com/michael-borck/diagram-analyser"
+Issues = "https://github.com/michael-borck/diagram-analyser/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/diagram_analyser"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
