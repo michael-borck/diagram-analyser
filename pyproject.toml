@@ -33,6 +33,9 @@ vision = [
     "anthropic>=0.30.0",
     "httpx>=0.26.0",
 ]
+embeddings = [
+    "lens-embed[text]>=0.1.1",
+]
 dev = [
     "pytest>=8.0.0",
     "pytest-cov>=4.0.0",
@@ -43,6 +46,7 @@ dev = [
 # the published wheel — the plain `lens-contract>=0.2.0` PyPI pin remains.
 [tool.uv.sources]
 lens-contract = { path = "../lens-contract", editable = true }
+lens-embed = { path = "../lens-embed", editable = true }
 
 [project.scripts]
 diagram-analyser = "diagram_analyser.cli:main"

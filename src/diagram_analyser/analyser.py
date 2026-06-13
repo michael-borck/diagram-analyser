@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from .embedding import embed_document
 from .exceptions import DiagramAnalyserError
 from .parsers import parse_drawio, parse_graphviz, parse_mermaid, parse_plantuml
 from .schemas import DiagramAnalysis, Graph
@@ -46,6 +47,7 @@ class DiagramAnalyser:
                 structure=structural_signals(graph),
                 naming=naming_signals(graph),
                 vision=None,
+                embedding=embed_document(text),
             )
 
         if suffix in _IMAGE_EXTENSIONS:
@@ -61,6 +63,7 @@ class DiagramAnalyser:
                 structure=structural_signals(graph),
                 naming=naming_signals(graph),
                 vision=vision_info,
+                embedding=None,
             )
 
         raise DiagramAnalyserError(

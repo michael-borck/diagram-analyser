@@ -78,3 +78,7 @@ class DiagramAnalysis(BaseModel):
     structure: StructuralSignals
     naming: NamingSignals
     vision: VisionInfo | None = None
+    # Pooled, L2-normalised source-text vector from lens-embed (pinned
+    # all-MiniLM-L6-v2). Comparable across members; None for image diagrams or
+    # unless the [embeddings] extra is installed.
+    embedding: list[float] | None = None
